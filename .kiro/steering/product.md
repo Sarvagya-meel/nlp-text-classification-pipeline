@@ -1,27 +1,32 @@
 # Product Overview
 
-## Project Goal
+## Project Name
+NLP Text Classification Pipeline
 
-Build an end-to-end NLP text classification pipeline that is clean, modular, and interview-ready. The pipeline takes raw text input and produces a predicted class label using classical ML techniques.
+## Objective
+Build a modular and scalable NLP pipeline for text classification tasks such as sentiment analysis and spam detection.
 
-## Scope
+## Goals
+- Implement an end-to-end NLP workflow
+- Compare multiple machine learning models
+- Understand preprocessing, feature engineering, and evaluation
+- Create an interview-ready and production-style codebase
 
-**In scope:**
-- Text preprocessing (cleaning, tokenization, stopword removal, stemming/lemmatization)
-- Feature extraction using TF-IDF
-- Multiple classifiers: Logistic Regression, Naive Bayes, SVM, Random Forest
-- Model evaluation with standard metrics (accuracy, precision, recall, F1, confusion matrix)
-- Inference on new/unseen text
-- CLI or script-based entry points for training and inference
+## Core Features
+- Data ingestion from CSV
+- Text preprocessing and cleaning
+- TF-IDF vectorization with n-grams
+- Model training (Naive Bayes, Logistic Regression, SVM, Decision Tree, Random Forest)
+- Evaluation using accuracy, precision, recall, and F1 score
+- Model persistence and inference
 
-**Out of scope:**
-- RAG (Retrieval-Augmented Generation)
-- LLM-based generation or embeddings
-- Deep learning / neural networks
-- REST APIs or web interfaces
-- Real-time streaming pipelines
-- Multi-label classification
+## Non-Goals
+- No RAG systems
+- No LLM fine-tuning
+- No complex distributed systems
 
-## Target Audience
-
-Developers and interviewers reviewing a well-structured, readable ML pipeline. Code should be easy to follow, explain, and extend.
+## Success Criteria
+- Pipeline runs end-to-end without errors
+- Models are comparable using standard metrics
+- Code is modular and easy to explain
+- Suitable for interview demonstration
