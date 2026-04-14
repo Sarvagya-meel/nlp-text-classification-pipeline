@@ -1,32 +1,25 @@
-# Product Overview
+---
+inclusion: always
+---
 
-## Project Name
-NLP Text Classification Pipeline
+# NLP Text Classification Pipeline
 
-## Objective
-Build a modular and scalable NLP pipeline for text classification tasks such as sentiment analysis and spam detection.
+## Purpose
+A modular, end-to-end NLP pipeline for text classification (e.g. sentiment analysis, spam detection). Designed to be interview-ready and production-style — clean, explainable, and easy to extend.
 
-## Goals
-- Implement an end-to-end NLP workflow
-- Compare multiple machine learning models
-- Understand preprocessing, feature engineering, and evaluation
-- Create an interview-ready and production-style codebase
+## Core Capabilities
+- Ingest raw text data from CSV files
+- Preprocess and normalize text (tokenization, stopword removal, stemming/lemmatization)
+- Extract features via TF-IDF with unigrams and bigrams
+- Train and compare five classifiers: Naive Bayes, Logistic Regression, LinearSVC, Decision Tree, Random Forest
+- Evaluate each model with accuracy, precision, recall, and F1
+- Persist trained models and run inference on new input
 
-## Core Features
-- Data ingestion from CSV
-- Text preprocessing and cleaning
-- TF-IDF vectorization with n-grams
-- Model training (Naive Bayes, Logistic Regression, SVM, Decision Tree, Random Forest)
-- Evaluation using accuracy, precision, recall, and F1 score
-- Model persistence and inference
+## Out of Scope
+- No RAG pipelines, LLM fine-tuning, or embedding-based approaches
+- No distributed systems or complex infrastructure
 
-## Non-Goals
-- No RAG systems
-- No LLM fine-tuning
-- No complex distributed systems
-
-## Success Criteria
+## Quality Bar
 - Pipeline runs end-to-end without errors
-- Models are comparable using standard metrics
-- Code is modular and easy to explain
-- Suitable for interview demonstration
+- All models evaluated under identical conditions for fair comparison
+- Code is modular, single-responsibility, and easy to walk through in an interview setting

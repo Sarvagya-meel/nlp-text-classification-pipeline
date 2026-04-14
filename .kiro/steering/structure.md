@@ -1,14 +1,19 @@
+---
+inclusion: always
+---
+
 # Project Structure
 
 ## Root Layout
 
+```
 nlp-text-classification-pipeline/
 ├── data/
-│   ├── raw/
-│   └── processed/
+│   ├── raw/          # Original, unmodified datasets (CSV)
+│   └── processed/    # Cleaned and normalized datasets
 ├── src/
 │   ├── __init__.py
-│   ├── config.py
+│   ├── config.py     # All constants: paths, hyperparameters, column names
 │   ├── data_loader.py
 │   ├── preprocessing.py
 │   ├── features.py
@@ -16,10 +21,10 @@ nlp-text-classification-pipeline/
 │   ├── evaluate.py
 │   ├── inference.py
 │   └── utils.py
-├── models/
+├── models/           # Serialized models via joblib
 ├── reports/
-│   ├── metrics/
-│   └── figures/
+│   ├── metrics/      # Evaluation outputs (text/JSON)
+│   └── figures/      # Plots and visualizations (PNG)
 ├── notes/
 │   ├── concepts.md
 │   ├── formulas.md
@@ -28,43 +33,30 @@ nlp-text-classification-pipeline/
 ├── tests/
 ├── requirements.txt
 └── README.md
+```
 
-## Folder Responsibilities
+## Module Responsibilities
 
-### data/
-- raw/: original datasets
-- processed/: cleaned datasets
+Each `src/` file has exactly one responsibility — do not mix concerns across files:
 
-### src/
-- Contains all core logic and pipeline code
+| File | Responsibility |
+|---|---|
+| `config.py` | All constants (paths, hyperparameters, column names). Never hardcode these elsewhere. |
+| `data_loader.py` | Load raw CSV datasets into DataFrames |
+| `preprocessing.py` | Clean and normalize text (tokenization, stopwords, stemming/lemmatization) |
+| `features.py` | TF-IDF vectorization — fit on train, transform on test/inference |
+| `train.py` | Build sklearn Pipelines and train all models |
+| `evaluate.py` | Compute and save metrics (accuracy, precision, recall, F1) and plots |
+| `inference.py` | Load a saved model and run predictions on new input |
+| `utils.py` | Shared helper functions used across modules |
 
-### models/
-- Stores serialized models (joblib/pickle)
+## Architectural Rules
 
-### reports/
-- metrics/: evaluation outputs
-- figures/: plots and visualizations
-
-### notes/
-- concepts.md: definitions and examples
-- formulas.md: key formulas
-- interview_qs.md: interview questions
-- learning_log.md: iterative learning notes
-
-### tests/
-- Unit tests (optional for now)
-
-## File Responsibilities
-
-- data_loader.py → load datasets
-- preprocessing.py → clean and normalize text
-- features.py → vectorization (TF-IDF)
-- train.py → model training
-- evaluate.py → metrics calculation
-- inference.py → prediction logic
-- utils.py → helper functions
-
-## Rules
-- Do not mix responsibilities across files
-- Keep each file focused on one concern
-- Maintain consistent naming across modules
+- **Single responsibility**: each module handles one concern only
+- **No cross-contamination**: data loading, preprocessing, and training logic must never coexist in the same file
+- **Config-driven**: all paths and magic strings must be imported from `config.py`
+- **Pipeline pattern**: every model is wrapped in a `sklearn.Pipeline` (TfidfVectorizer + classifier) to prevent data leakage
+- **Vectorizer discipline**: fit only on training data; reuse the fitted vectorizer for test and inference — never refit
+- **Model persistence**: use `joblib.dump` / `joblib.load`; save to `models/`
+- **Output paths**: metrics go to `reports/metrics/`, plots go to `reports/figures/`
+- **Prefer return values over side effects** in functions; keep functions under ~30 lines
