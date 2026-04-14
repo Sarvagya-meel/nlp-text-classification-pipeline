@@ -1,28 +1,50 @@
-# Tech Stack
+# Technical Guidelines
 
 ## Language
-- Python 3.9+
+- Python 3.10+
 
-## Core Libraries
+## Libraries
+- pandas
+- numpy
+- scikit-learn
+- nltk
+- joblib
+- matplotlib
+- seaborn
 
-| Purpose | Library |
-|---|---|
-| ML / Classifiers | scikit-learn |
-| NLP Preprocessing | nltk |
-| Data handling | pandas, numpy |
-| Serialization | joblib |
-| Evaluation | scikit-learn metrics |
-| CLI | argparse (stdlib) |
+## Optional Libraries
+- spaCy (for advanced NLP)
+- FastAPI (for API layer)
 
-## Constraints
-- No deep learning frameworks (no PyTorch, TensorFlow, Keras)
-- No LLM APIs (no OpenAI, HuggingFace Transformers, LangChain)
-- No vector databases or RAG components
-- Prefer scikit-learn pipelines (`Pipeline`, `FeatureUnion`) where it improves clarity
-- Use `joblib` for saving/loading trained models and vectorizers
+## Modeling Approach
+- Use TF-IDF as baseline feature extraction
+- Include n-grams (1,2) where useful
+- Compare multiple classifiers:
+  - Multinomial Naive Bayes
+  - Logistic Regression
+  - Support Vector Machine (SVM)
+  - Decision Tree
+  - Random Forest
 
-## Python Conventions
-- Type hints on all function signatures
-- Docstrings on all public functions and classes (Google style)
-- No global mutable state — pass config/params explicitly
-- Use `if __name__ == "__main__"` guards on all runnable scripts
+## Evaluation Metrics
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+
+## Engineering Practices
+- Use modular functions across files
+- Keep functions small and readable
+- Prefer sklearn Pipelines where appropriate
+- Avoid hardcoding paths
+- Use config file for constants
+
+## Code Style
+- Clear variable naming
+- Minimal but meaningful comments
+- Follow consistent structure across modules
+
+## Performance Considerations
+- Avoid unnecessary recomputation
+- Reuse vectorizers where possible
+- Keep models lightweight for fast iteration
