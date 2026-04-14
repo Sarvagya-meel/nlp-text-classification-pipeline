@@ -1,0 +1,338 @@
+Perfect — now let’s do this clean, step-by-step with Kiro so you don’t get confused.
+
+This will take you from:
+👉 Empty system → Kiro setup → Spec → Code → Working NLP pipeline
+
+⸻
+
+🚀 PHASE 0 — SETUP KIRO + PROJECT
+
+⸻
+
+🔹 Step 1: Open Kiro
+	•	Open Kiro IDE
+	•	Click “Open Folder”
+	•	Select your repo:
+
+nlp-text-classification-pipeline
+
+
+⸻
+
+🔹 Step 2: Initialize Project Context (VERY IMPORTANT)
+
+👉 First prompt in Kiro:
+
+Understand this project as a Python NLP text classification pipeline.
+The goal is to build an end-to-end pipeline including preprocessing, TF-IDF, multiple classifiers, evaluation, and inference.
+Do not include RAG or LLM generation.
+Keep everything simple, modular, and interview-ready.
+
+
+⸻
+
+🧠 PHASE 1 — CREATE STEERING (PROJECT RULES)
+
+👉 This makes Kiro “think correctly” every time
+
+⸻
+
+🔹 Step 3: Generate Steering Files
+
+Prompt:
+
+Create steering files for this project.
+
+Include:
+- product.md (project goal and scope)
+- tech.md (Python, sklearn, NLP stack)
+- structure.md (folder structure and coding rules)
+
+Keep the project focused on NLP classification pipeline and interview-level clarity.
+
+👉 Kiro will create:
+	•	.kiro/steering/product.md
+	•	.kiro/steering/tech.md
+	•	.kiro/steering/structure.md
+
+⸻
+
+📐 PHASE 2 — CREATE SPEC (THE BRAIN)
+
+⸻
+
+🔹 Step 4: Create Spec (Design-First)
+
+Prompt:
+
+Create a Design-First spec for a text classification pipeline.
+
+Requirements:
+- Data loading
+- Text cleaning
+- Missing value handling
+- TF-IDF vectorization
+- N-grams
+- Train models:
+  - Naive Bayes
+  - Logistic Regression
+  - SVM
+  - Decision Tree
+  - Random Forest
+- Evaluation:
+  - Accuracy, Precision, Recall, F1
+- Model saving and inference
+
+Also include:
+- Underfitting vs Overfitting checks
+- Feature engineering
+
+Generate:
+- requirements.md
+- design.md
+- tasks.md
+
+
+⸻
+
+👉 This is your roadmap automatically created
+
+⸻
+
+🏗️ PHASE 3 — SCAFFOLD PROJECT
+
+⸻
+
+🔹 Step 5: Create Folder Structure
+
+Prompt:
+
+Create the full project folder structure for this NLP pipeline:
+
+- src/
+- data/raw
+- data/processed
+- models/
+- reports/metrics
+- reports/figures
+- notes/
+
+Also create empty Python files:
+- data_loader.py
+- preprocessing.py
+- features.py
+- train.py
+- evaluate.py
+- inference.py
+
+
+⸻
+
+⚙️ PHASE 4 — START CODING (IMPORTANT)
+
+⸻
+
+🔹 Step 6: Build First Working Pipeline
+
+Prompt:
+
+Implement a minimal working pipeline:
+
+- Load CSV data
+- Clean text (lowercase + remove special characters)
+- Split train/test
+- Apply TF-IDF vectorization
+- Train Naive Bayes model
+- Save model using joblib
+
+Keep code simple and modular across files.
+
+
+⸻
+
+👉 Run:
+
+python src/train.py
+
+
+⸻
+
+📊 PHASE 5 — ADD EVALUATION
+
+⸻
+
+🔹 Step 7: Add Metrics
+
+Prompt:
+
+Add evaluation module:
+
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+
+Print results clearly and explain each metric in comments.
+
+
+⸻
+
+🤖 PHASE 6 — ADD MULTIPLE MODELS
+
+⸻
+
+🔹 Step 8: Model Comparison
+
+Prompt:
+
+Extend training to include:
+
+- Logistic Regression
+- SVM
+- Decision Tree
+- Random Forest
+
+Train all models on same TF-IDF features and output a comparison table of metrics.
+
+
+⸻
+
+🧠 PHASE 7 — ADD NLP IMPROVEMENTS
+
+⸻
+
+🔹 Step 9: Feature Engineering
+
+Prompt:
+
+Enhance preprocessing:
+
+- Add stopword removal
+- Add lemmatization
+- Add n-grams support
+
+Explain in comments how these improve performance.
+
+
+⸻
+
+📉 PHASE 8 — OVERFITTING / UNDERFITTING
+
+⸻
+
+🔹 Step 10: Add Model Diagnostics
+
+Prompt:
+
+Add checks for:
+
+- Underfitting
+- Overfitting
+
+Compare train vs test performance and explain results in comments.
+
+
+⸻
+
+🔁 PHASE 9 — INFERENCE
+
+⸻
+
+🔹 Step 11: Prediction Script
+
+Prompt:
+
+Create inference script:
+
+- Load saved model
+- Accept input text
+- Return prediction
+
+Make it simple and reusable.
+
+
+⸻
+
+🧾 PHASE 10 — NOTES + INTERVIEW PREP
+
+⸻
+
+🔹 Step 12: Generate Notes
+
+Prompt:
+
+Create notes/concepts.md with:
+
+- TF-IDF
+- Precision, Recall, F1
+- Naive Bayes
+- Logistic Regression
+- SVM
+- Overfitting, Underfitting
+
+Each as:
+Definition + Example
+
+
+⸻
+
+🔄 PHASE 11 — ADD MEMORY (ADVANCED)
+
+⸻
+
+🔹 Step 13: Add Learning Log
+
+Prompt:
+
+Create a system to track learning:
+
+File: notes/learning_log.md
+
+After each milestone add:
+- Concept learned
+- Example
+- Interview question
+
+
+⸻
+
+⚡ PHASE 12 — OPTIONAL HOOK
+
+Later:
+
+Create a hook that updates learning_log.md after task completion.
+
+
+⸻
+
+🎯 FINAL FLOW (REMEMBER THIS)
+
+Steering → Spec → Structure → Code → Evaluate → Improve → Notes
+
+
+⸻
+
+🔥 WHAT YOU’LL HAVE AFTER THIS
+	•	Real NLP project
+	•	Interview-ready explanations
+	•	Clean repo
+	•	Kiro-driven workflow
+	•	Practical + theoretical mastery
+
+⸻
+
+🚀 NEXT (VERY IMPORTANT)
+
+After this, do ONE of these:
+
+👉 Add FastAPI endpoint (production feel)
+👉 Use real dataset (IMDb / Twitter)
+👉 Add hyperparameter tuning (GridSearchCV)
+
+⸻
+
+If you want, next I can:
+
+✅ Sit with you like pair programming and guide each file
+✅ Or simulate “build this in interview” coding round
+✅ Or upgrade this into resume-level project (with impact)
