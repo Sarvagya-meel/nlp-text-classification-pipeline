@@ -1,0 +1,9 @@
+{
+  "accuracy": 0.95,
+  "precision": 0.9545,
+  "recall": 0.95,
+  "f1": 0.9499,
+  "train_score": 1.0,
+  "test_score": 0.95,
+  "diagnosis": "good_fit"
+}

@@ -1,0 +1,38 @@
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# # Trained models
+# models/*.joblib
+
+# # Reports (generated outputs)
+# reports/metrics/*.json
+# reports/figures/*.png
+
+# # Data (raw/processed datasets — keep .gitkeep)
+# data/raw/*.csv
+# data/processed/*.csv
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Env files
+.env
+*.env

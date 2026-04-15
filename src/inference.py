@@ -3,10 +3,11 @@
 
 import joblib
 import numpy as np
+import pandas as pd
 from sklearn.pipeline import Pipeline
 
 from src.config import MODELS_PATH
-from src.preprocessing import clean_text
+from src.preprocessing import preprocess_series
 
 
 def load_model(model_name: str) -> Pipeline:
@@ -28,7 +29,7 @@ def predict(text: str, model_name: str) -> tuple[str, float]:
         raise ValueError("Input text must be a non-empty string.")
 
     pipeline = load_model(model_name)
-    cleaned = clean_text(text)
+    cleaned = preprocess_series(pd.Series([text])).iloc[0]
 
     # Confidence: use predict_proba if available, else decision function
     if hasattr(pipeline, "predict_proba"):
