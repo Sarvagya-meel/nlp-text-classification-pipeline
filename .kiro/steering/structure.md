@@ -50,6 +50,12 @@ Each `src/` file has exactly one responsibility — do not mix concerns across f
 | `inference.py` | Load a saved model and run predictions on new input |
 | `utils.py` | Shared helper functions used across modules |
 
+## Root-level Scripts
+
+| File | Responsibility |
+|---|---|
+| `test_inference.py` | Standalone demo script — runs all 5 models on sample texts, prints results table |
+
 ## Architectural Rules
 
 - **Single responsibility**: each module handles one concern only
@@ -60,3 +66,4 @@ Each `src/` file has exactly one responsibility — do not mix concerns across f
 - **Model persistence**: use `joblib.dump` / `joblib.load`; save to `models/`
 - **Output paths**: metrics go to `reports/metrics/`, plots go to `reports/figures/`
 - **Prefer return values over side effects** in functions; keep functions under ~30 lines
+- **Tests**: always run via `python3 -m pytest tests/ -v` from project root — never `pytest` directly (ensures `src` imports resolve)

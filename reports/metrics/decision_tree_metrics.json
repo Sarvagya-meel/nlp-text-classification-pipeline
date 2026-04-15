@@ -1,9 +1,9 @@
 {
-  "accuracy": 0.7,
-  "precision": 0.7083,
-  "recall": 0.7,
-  "f1": 0.697,
+  "accuracy": 0.75,
+  "precision": 0.7525,
+  "recall": 0.75,
+  "f1": 0.7494,
   "train_score": 1.0,
-  "test_score": 0.7,
+  "test_score": 0.75,
   "diagnosis": "overfit"
 }
