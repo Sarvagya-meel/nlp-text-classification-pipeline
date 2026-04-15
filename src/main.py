@@ -13,7 +13,7 @@ from src.data_loader import load_raw_data, validate_columns
 from src.preprocessing import remove_missing, preprocess_series
 from src.train import build_pipelines, train_model, save_model
 from src.evaluate import (
-    evaluate_model, compute_train_test_scores, diagnose_fit,
+    evaluate_model, print_metrics, compute_train_test_scores, diagnose_fit,
     save_metrics, plot_confusion_matrix, plot_learning_curve,
     plot_metrics_comparison,
 )
@@ -58,6 +58,7 @@ def run_pipeline(csv_path: str) -> None:
         metrics.update(scores)
         metrics["diagnosis"] = diagnosis
         save_metrics(metrics, name)
+        print_metrics(metrics, name)
 
         plot_confusion_matrix(fitted, X_test, y_test, name)
         plot_learning_curve(fitted, X_train, y_train, name)
@@ -66,16 +67,39 @@ def run_pipeline(csv_path: str) -> None:
 
     plot_metrics_comparison(all_metrics)
 
-    # 6. Summary table
-    print("\n" + "=" * 60)
-    print(f"{'Model':<22} {'Acc':>6} {'P':>6} {'R':>6} {'F1':>6} {'Fit':>10}")
-    print("-" * 60)
+    # 6. Comparison table
+    # All 5 models trained on identical TF-IDF features and the same train/test split
+    # so scores are directly comparable across rows.
+    print("\n")
+    print("=" * 75)
+    print("  MODEL COMPARISON — All models trained on identical TF-IDF features")
+    print("=" * 75)
+    print(f"  {'Model':<22} {'Accuracy':>9} {'Precision':>10} {'Recall':>8} {'F1':>8} {'Diagnosis':>12}")
+    print("  " + "-" * 71)
+
+    # Find best F1 to highlight the winner
+    best_name = max(all_metrics, key=lambda n: all_metrics[n]["f1"])
+
     for name, m in all_metrics.items():
+        marker = " ◀ best" if name == best_name else ""
         print(
-            f"{name:<22} {m['accuracy']:>6.3f} {m['precision']:>6.3f} "
-            f"{m['recall']:>6.3f} {m['f1']:>6.3f} {m['diagnosis']:>10}"
+            f"  {name:<22} {m['accuracy']:>9.4f} {m['precision']:>10.4f} "
+            f"{m['recall']:>8.4f} {m['f1']:>8.4f} {m['diagnosis']:>12}{marker}"
         )
-    print("=" * 60)
+
+    print("  " + "-" * 71)
+    print()
+    print("  Metrics legend:")
+    print("  Accuracy  — % of all predictions that were correct")
+    print("  Precision — of predicted positives, how many were truly positive")
+    print("  Recall    — of actual positives, how many did the model catch")
+    print("  F1        — harmonic mean of Precision & Recall (best overall score)")
+    print()
+    print("  Diagnosis legend:")
+    print("  good_fit  — train/test scores are close and high")
+    print("  overfit   — train score >> test score (gap > 0.10)")
+    print("  underfit  — both scores below 0.70")
+    print("=" * 75)
 
 
 if __name__ == "__main__":
