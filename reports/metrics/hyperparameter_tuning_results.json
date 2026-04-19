@@ -1,0 +1,13 @@
+{
+  "best_params": {
+    "clf__C": 10,
+    "clf__l1_ratio": 0.0,
+    "tfidf__max_features": 5000,
+    "tfidf__ngram_range": [
+      1,
+      1
+    ]
+  },
+  "best_cv_score": 0.975,
+  "test_score": 0.95
+}

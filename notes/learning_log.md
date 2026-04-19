@@ -219,3 +219,118 @@ inference time — which would produce a different vocabulary and break predicti
 Saving the full Pipeline guarantees identical preprocessing at training and inference time.
 
 ---
+
+## Entry 8 — L1 vs L2 Regularization
+
+**Date:** 2026-04-19
+
+### Concept Learned
+Regularization adds a penalty to the loss function to prevent overfitting by discouraging
+large model weights. L1 (Lasso) pushes some weights exactly to zero — automatic feature
+selection. L2 (Ridge) shrinks all weights toward zero but never to exactly zero — more
+stable when features are correlated (common in TF-IDF). The `C` parameter controls
+strength: small C = strong regularization = simpler model.
+
+### Example
+```python
+from sklearn.linear_model import LogisticRegression
+
+# L2 (default) — shrinks all weights, stable on correlated TF-IDF features
+lr_l2 = LogisticRegression(l1_ratio=0.0, C=1, solver="saga")
+
+# L1 — zeroes out irrelevant features, produces sparse model
+lr_l1 = LogisticRegression(l1_ratio=1.0, C=10, solver="saga")
+
+# Observed results on this dataset:
+# L2 at C=0.1 → test_score=0.90  (converges quickly)
+# L1 at C=0.1 → test_score=0.50  (too aggressive, needs higher C)
+# L2 at C=1   → test_score=0.95  (sweet spot)
+# L1 at C=10  → test_score=0.85  (needs more freedom to perform)
+```
+
+### Interview Question
+**Q: When would you choose L1 over L2 regularization for a text classifier?**
+A: Choose L1 when you suspect many TF-IDF features are irrelevant and want automatic
+feature selection — L1 zeroes out those weights, producing a sparse, interpretable model.
+Choose L2 when features are correlated (as they often are in TF-IDF, where similar words
+co-occur) — L2 distributes weight across correlated features rather than arbitrarily
+zeroing some out. In practice, L2 is the safer default for NLP tasks.
+
+---
+
+## Entry 9 — Cross-Validation
+
+**Date:** 2026-04-19
+
+### Concept Learned
+A single train/test split gives one score that depends on which samples happened to land
+in the test set — it can be misleadingly high or low. K-fold cross-validation splits the
+data into k folds, trains on k-1 folds and tests on the remaining fold, repeating k times.
+The final score is mean ± std across all folds. StratifiedKFold preserves class distribution
+in each fold — essential for classification tasks.
+
+### Example
+```python
+from sklearn.model_selection import cross_val_score, StratifiedKFold
+
+skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+scores = cross_val_score(pipeline, X, y, cv=skf, scoring="accuracy")
+
+print(f"Mean: {scores.mean():.4f}  Std: {scores.std():.4f}")
+# Mean: 0.9600  Std: 0.0374  → stable model
+
+# Observed results:
+# naive_bayes         mean=0.96  std=0.037  → stable
+# logistic_regression mean=0.94  std=0.020  → very stable
+# decision_tree       mean=0.81  std=0.037  → lower mean, confirms overfitting
+# random_forest       mean=0.93  std=0.051  → slightly unstable (ensemble variance)
+```
+
+### Interview Question
+**Q: Why is cross-validation more reliable than a single train/test split?**
+A: A single split gives one score that depends on which 20% of data happened to be in
+the test set — this can be lucky or unlucky. Cross-validation averages over k different
+splits, giving a more stable estimate of real-world performance. The standard deviation
+across folds also reveals model stability: high std means the model is sensitive to which
+data it sees, which is a sign of overfitting or insufficient data.
+
+---
+
+## Entry 10 — Hyperparameter Tuning with GridSearchCV
+
+**Date:** 2026-04-19
+
+### Concept Learned
+Hyperparameters are settings chosen before training (not learned from data) — e.g. TF-IDF
+`max_features`, `ngram_range`, and LogReg `C`. GridSearchCV exhaustively tries all
+combinations and selects the best using cross-validation internally, so the test set is
+never touched during selection. This prevents data leakage from hyperparameter choice.
+
+### Example
+```python
+from sklearn.model_selection import GridSearchCV
+
+param_grid = {
+    "tfidf__max_features": [5000, 10000],
+    "tfidf__ngram_range":  [(1, 1), (1, 2)],
+    "clf__C":              [0.1, 1, 10],
+    "clf__l1_ratio":       [0.0, 1.0],   # 0.0=L2, 1.0=L1
+}
+
+grid_search = GridSearchCV(pipeline, param_grid, cv=5, scoring="accuracy")
+grid_search.fit(X_train, y_train)
+
+print(grid_search.best_params_)
+# {'clf__C': 10, 'clf__l1_ratio': 0.0, 'tfidf__max_features': 5000,
+#  'tfidf__ngram_range': (1, 1)}
+# Best CV score: 0.975  |  Test score: 0.950
+```
+
+### Interview Question
+**Q: Why must hyperparameter tuning use cross-validation rather than the test set?**
+A: If you tune hyperparameters by evaluating on the test set, you're effectively training
+on the test set — the chosen hyperparameters are optimised for that specific test data,
+not for unseen data. This is data leakage. GridSearchCV uses cross-validation on the
+training set only, so the test set remains a true held-out evaluation of the final model.
+
+---

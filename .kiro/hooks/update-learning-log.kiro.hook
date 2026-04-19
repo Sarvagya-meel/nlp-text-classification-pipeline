@@ -9,5 +9,7 @@
   "then": {
     "type": "askAgent",
     "prompt": "A task was just completed in the NLP text classification pipeline project. Review what was implemented and append a new entry to notes/learning_log.md following this exact format:\n\n---\n\n## Entry N — [Short title describing what was built]\n\n**Date:** [today's date]\n\n### Concept Learned\n[2-3 sentences explaining the core concept behind what was just implemented]\n\n### Example\n```python\n[A short, concrete code example illustrating the concept]\n```\n\n### Interview Question\n**Q: [A realistic interview question about this concept]**\nA: [A clear, concise answer an interviewer would expect]\n\n---\n\nRules:\n- Increment the entry number (N) from the last entry in the file\n- Keep each section brief and interview-focused\n- The example must be runnable Python or a clear input/output illustration\n- Do not duplicate concepts already covered in existing entries\n- Append to the END of notes/learning_log.md, do not overwrite existing content"
-  }
+  },
+  "workspaceFolderName": "nlp-text-classification-pipeline",
+  "shortName": "update-learning-log"
 }
